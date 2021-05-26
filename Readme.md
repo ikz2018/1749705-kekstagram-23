@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Islam Karimov](https://up.htmlacademy.ru/javascript/23/user/1749705).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий (sench) Железцов](https://htmlacademy.ru/profile/sench).
 
 ---
 
