@@ -1,19 +1,17 @@
-function randomRange (myMin, myMax) {
-  return Math.floor(Math.random() * (myMax - myMin + 1) + myMin);
-}
-/* А также придумайте, как функция должна вести себя, если передать значение «до» меньшее,
- чем значение «от», или равное ему.
- Сложность с этим моментом.
-*/
-
-let comment = document.querySelector('.social__footer-text');
-let commentsCount = document.querySelector('.comments-count');
-let commentWidth = comment.length;
-let maxWidthComment = commentsCount.textContent;
-
-function commentLength (commentWidth, maxWidthComment) {
-  if (commentWidth <= maxWidthComment) {
-    return true
+// eslint-disable-next-line no-unused-vars
+function getRandomRang(myMin, myMax) {
+  if (myMin <= myMax) {
+    return Math.floor( Math.random() * (myMax - myMin + 1) + myMin );
+  } else if (myMin === myMax) {
+    return myMin;
   }
-  return false;
+  throw new Error('Вы задали неверный диапазон');
 }
+
+
+//const isAppropriateStrLength = (str, maxLength) => str.length <= maxLength ;
+
+// eslint-disable-next-line no-unreachable
+const IS_APPROPRIATE_STR_LENGTH = function (str, maxLength) {
+  return str.length <= maxLength;
+};
