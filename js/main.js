@@ -8,7 +8,7 @@ function getRandomRang(myMin, myMax) {
   throw new Error('Вы задали неверный диапазон');
 }
 
-// eslint-disable-next-line no-unreachable
+// eslint-disable-next-line no-unused-vars
 const IS_APPROPRIATE_STR_LENGTH = function (str, maxLength) {
   return str.length <= maxLength;
 };
