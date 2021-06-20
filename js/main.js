@@ -57,13 +57,12 @@ const createGetId = (startValue = 1) => {
   return () => id++;
 }
 
-const getUrl = id =>`photos/${id}.jpg`;
-
-const getAvatarUrl = idx => `img/avatar-${idx}.svg`;
-
 const getId = createGetId();
 const getCommentId = createGetId(1000);
-const id = getId();
+const id = createGetId();
+
+const getAvatarUrl = idx => `img/avatar-${idx}.svg`;
+const getUrl = id => `photos/${id}.jpg`;
 
 const getRandomComment = () => {
   const id = getCommentId();
@@ -76,17 +75,32 @@ const getRandomComment = () => {
   }
 };
 
-const propertyObjects = [];
-const getPropertyObject = () => {
+const fillBy = (count, cb) => {
+  const result = [];
+
+  for(let i = 0; i < count; i++) {
+    result.push(cb());
+  }
+
+  return result;
+}
+
+const createRandomPhotos = () => {
   return {
-    id,
+    id: getId(),
     url: getUrl(),
     description: getRandomItem(DESCRIPTION),
     likes: getRandomFloat(15, 200, 0),
-    comments: getRandomComment(),
+    comments: fillBy(getRandomFloat(1, 2, 0), getRandomComment),
   }
 }
+const getRandomPhotos = (count) => {
+  const randomPhotos = [];
+  for (let i = 0; i < count; i++) {
+    randomPhotos.push(createRandomPhotos());
+  };
+  return randomPhotos;
+};
 
-propertyObjects.push(getPropertyObject());
 
-console.log(propertyObjects)
+console.log(getRandomPhotos(25))
