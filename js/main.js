@@ -22,6 +22,13 @@ const isApprociateStrLength = function (str, maxLength) {
   return str.length <= maxLength;
 };
 
+const ONE_COMMENT = 1;
+const TWO_COMMENT = 2;
+const MIN_LIKES = 15;
+const MAX_LIKES = 200;
+const NUMBER_OF_COMMENTS = 1000;
+const AVATAR_1 = 1;
+const AVATAR_6 = 6;
 const DESCRIPTION = ['Природа', 'Искусство', 'Техника'];
 const MESSAGE = ['Всё отлично!',
 'В целом всё неплохо. Но не всё.',
@@ -52,24 +59,23 @@ const createGetRandomItem = data => {
 }
 
 const createGetId = (startValue = 1) => {
-  let id = startValue;
+  let idx = startValue;
 
-  return () => id++;
+  return () => idx++;
 }
 
 const getId = createGetId();
-const getCommentId = createGetId(1000);
-const id = createGetId();
+const getCommentId = createGetId(NUMBER_OF_COMMENTS);
 
 const getAvatarUrl = idx => `img/avatar-${idx}.svg`;
-const getUrl = id => `photos/${id}.jpg`;
+const getUrl = idx => `photos/${idx}.jpg`;
 
 const getRandomComment = () => {
   const id = getCommentId();
 
   return {
     id,
-    avatar: getAvatarUrl(getRandomFloat(1, 6, 0)),
+    avatar: getAvatarUrl(getRandomFloat(AVATAR_1, AVATAR_6, 0)),
     message: 'В целом всё неплохо',
     name: 'Вася',
   }
@@ -85,21 +91,20 @@ const fillBy = (count, cb) => {
   return result;
 }
 
-const createRandomPhotos = () => {
+const createRandomPhoto = () => {
+  const id = getId();
   return {
-    id: getId(),
-    url: getUrl(),
+    id,
+    url: getUrl(id),
     description: getRandomItem(DESCRIPTION),
-    likes: getRandomFloat(15, 200, 0),
-    comments: fillBy(getRandomFloat(1, 2, 0), getRandomComment),
+    likes: getRandomFloat(MIN_LIKES, MAX_LIKES, 0),
+    comments: fillBy(getRandomFloat(ONE_COMMENT, TWO_COMMENT, 0), getRandomComment),
   }
 }
 const getRandomPhotos = (count) => {
-  const randomPhotos = [];
-  for (let i = 0; i < count; i++) {
-    randomPhotos.push(createRandomPhotos());
-  };
-  return randomPhotos;
+
+  return fillBy(count, createRandomPhoto)
+
 };
 
 
