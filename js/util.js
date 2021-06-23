@@ -1,7 +1,3 @@
-import {FIRST_COMMENT, SECOND_COMMENT, MIN_LIKES, MAX_LIKES, NUMBER_OF_COMMENTS,
-    FIRST_AVATAR, SIXTH_AVATAR, DESCRIPTION, MESSAGE} from './data.js';
-
-    
 const isPositiveNumber = (value) => typeof value === 'number' && value >=0;
 
 function getRandomBetween(min, max) {
@@ -34,66 +30,33 @@ const getRandomFloat = (...args) => {
     ];
   
     return Math.round( (Math.random() * (max - min) + min) * pow) / pow;
+}
+  
+const getRandomItem = array => array[getRandomFloat(0, array.length)];
+  
+const randomCompareItems = () => Math.floor(Math.random()*30) - 10;
+  
+const createGetRandomItem = data => {
+  const mixed = [...data].sort(randomCompareItems);
+  let idx = 0;
+  
+  return () => mixed[idx++ % mixed.length];
+}
+  
+const createGetId = (startValue = 1) => {
+  let idx = startValue;
+  
+  return () => idx++;
+}
+    
+const fillBy = (count, cb) => {
+  const result = [];
+  
+  for(let i = 0; i < count; i++) {
+    result.push(cb());
   }
   
-  const getRandomItem = array => array[getRandomFloat(0, array.length)];
+  return result;
+}
   
-  const randomCompareItems = () => Math.floor(Math.random()*30) - 10;
-  
-  const createGetRandomItem = data => {
-    const mixed = [...data].sort(randomCompareItems);
-    let idx = 0;
-  
-    return () => mixed[idx++ % mixed.length];
-  }
-  
-  const createGetId = (startValue = 1) => {
-    let idx = startValue;
-  
-    return () => idx++;
-  }
-  
-  const getId = createGetId();
-  const getCommentId = createGetId(NUMBER_OF_COMMENTS);
-  
-  const getAvatarUrl = idx => `img/avatar-${idx}.svg`;
-  const getUrl = idx => `photos/${idx}.jpg`;
-  
-  const getRandomComment = () => {
-    const id = getCommentId();
-  
-    return {
-      id,
-      avatar: getAvatarUrl(getRandomFloat(FIRST_AVATAR, SIXTH_AVATAR, 0)),
-      message: 'В целом всё неплохо',
-      name: 'Вася',
-    }
-  };
-  
-  const fillBy = (count, cb) => {
-    const result = [];
-  
-    for(let i = 0; i < count; i++) {
-      result.push(cb());
-    }
-  
-    return result;
-  }
-  
-  const createRandomPhoto = () => {
-    const id = getId();
-    return {
-      id,
-      url: getUrl(id),
-      description: getRandomItem(DESCRIPTION),
-      likes: getRandomFloat(MIN_LIKES, MAX_LIKES, 0),
-      comments: fillBy(getRandomFloat(FIRST_COMMENT, SECOND_COMMENT, 0), getRandomComment),
-    }
-  }
-  const getRandomPhotos = (count) => {
-  
-    return fillBy(count, createRandomPhoto)
-  
-  };
-
-  export {getRandomPhotos};
+export {getRandomItem, fillBy, createGetId, createGetRandomItem, getRandomFloat};
