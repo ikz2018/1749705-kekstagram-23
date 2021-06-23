@@ -1,3 +1,3 @@
-import {getRandomPhotos} from './util.js';
+import {getRandomPhotos} from './data.js';
 
 console.log(getRandomPhotos(25));
