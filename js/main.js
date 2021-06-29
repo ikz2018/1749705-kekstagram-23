@@ -1,5 +1,5 @@
 import {getRandomPhotos} from './data.js';
-import {createPictureList} from './previews.js'
-console.log(getRandomPhotos(25));
+import {createPictureList} from './previews.js';
+
 createPictureList(getRandomPhotos(25));
 
