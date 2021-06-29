@@ -43,7 +43,7 @@ const getRandomComment = () => {
     avatar: getAvatarUrl(getRandomFloat(FIRST_AVATAR, SIXTH_AVATAR, 0)),
     message: getRandomItem(MESSAGES),
     name: getRandomItem(NAMES),
-  }
+  };
 };
 
 const createRandomPhoto = () => {
@@ -54,8 +54,8 @@ const createRandomPhoto = () => {
     description: getRandomItem(DESCRIPTIONS),
     likes: getRandomFloat(MIN_LIKES, MAX_LIKES, 0),
     comments: fillBy(getRandomFloat(FIRST_COMMENT, SECOND_COMMENT, 0), getRandomComment),
-  }
-}
+  };
+};
 
 const getRandomPhotos = (count) => fillBy(count, createRandomPhoto);
 
