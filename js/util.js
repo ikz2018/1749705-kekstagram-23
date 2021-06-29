@@ -10,12 +10,6 @@ function getRandomBetween(min, max) {
 
   return Math.round(Math.random() * (to - from)) + from;
 }
-try {
-  getRandomBetween('123123','123123');
-} catch (err) {
-  // eslint-disable-next-line no-console
-  console.log(err); //не выходит в консоль
-}
 
 // eslint-disable-next-line no-unused-vars
 const isApprociateStrLength = function (str, maxLength) {
