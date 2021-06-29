@@ -6,8 +6,25 @@ const BIG_PICTURE_DESCRIPTION = BIG_PICTURE.querySelector('.social__caption');
 const BIG_PICTURE_COMMENTS_COUNT = BIG_PICTURE.querySelector('.social__comment-count');
 const BIG_PICTURE_COMMENTS_LOADER = BIG_PICTURE.querySelector('.comments-loader');
 const CANCEL_BUTTON = BIG_PICTURE.querySelector('.big-picture__cancel');
+const COMMENT_TEMPLATE = BIG_PICTURE.querySelector('.social__comment');
+const COMMENTS_LIST = document.querySelector('.social__comments');
 
-const showBigPicture = function (photo) {
+const fillComments = (photo) => {
+  const commentsListFragment = document.createDocumentFragment();
+  const comments = photo.comments;
+  
+  comments.forEach((comment) => {
+    const commentClone = COMMENT_TEMPLATE.cloneNode(true);
+    const avatar = commentClone.querySelector('.social__picture');
+    const commentText = commentClone.querySelector('.social__text');
+    avatar.setAttribute('src', comment.avatar);
+    commentText.textContent = comment.message;
+    commentsListFragment.appendChild(commentClone);  
+  });
+  COMMENTS_LIST.appendChild(commentsListFragment);
+};
+
+const showBigPicture = (photo) => {
   BIG_PICTURE.classList.toggle('hidden');
   BIG_PICTURE_IMG.src = photo.url;
   BIG_PICTURE_LIKES.textContent = photo.likes;
@@ -30,4 +47,6 @@ document.addEventListener('keydown', (evt) => {
   }
 });
 
-export {showBigPicture};
+
+
+export {showBigPicture, fillComments};
