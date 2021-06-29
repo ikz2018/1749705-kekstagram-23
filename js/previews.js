@@ -1,4 +1,4 @@
-import {showBigPicture, fillComments} from './big-photo.js'
+import {showBigPicture, fillComments} from './big-photo.js';
 
 const PHOTOS_TEMPLATE = document.querySelector('#picture').content;
 const PHOTOS_CONTAINER = document.querySelector('.pictures');
