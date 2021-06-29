@@ -8,6 +8,7 @@ const BIG_PICTURE_COMMENTS_LOADER = BIG_PICTURE.querySelector('.comments-loader'
 const CANCEL_BUTTON = BIG_PICTURE.querySelector('.big-picture__cancel');
 const COMMENT_TEMPLATE = BIG_PICTURE.querySelector('.social__comment');
 const COMMENTS_LIST = document.querySelector('.social__comments');
+const body = document.querySelector('body');
 
 const fillComments = (photo) => {
   const commentsListFragment = document.createDocumentFragment();
@@ -29,7 +30,6 @@ const showBigPicture = (photo) => {
   BIG_PICTURE_IMG.src = photo.url;
   BIG_PICTURE_LIKES.textContent = photo.likes;
   BIG_PICTURE_COMMENTS.textContent = photo.comments.length;
-  fillComments = photo.comments;
   BIG_PICTURE_DESCRIPTION.textContent = photo.description;
   BIG_PICTURE_COMMENTS_COUNT.classList.add('hidden');
   BIG_PICTURE_COMMENTS_LOADER.classList.add('hidden');
@@ -47,7 +47,5 @@ document.addEventListener('keydown', (evt) => {
     body.classList.toggle('modal-open');
   }
 });
-
-
 
 export {showBigPicture, fillComments};
