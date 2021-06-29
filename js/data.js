@@ -1,4 +1,9 @@
-import {getRandomItem, fillBy, createGetId, getRandomFloat} from './util.js'
+import {
+  getRandomItem, 
+  fillBy, 
+  createGetId, 
+  getRandomFloat
+} from './util.js';
 
 const FIRST_COMMENT = 1;
 const SECOND_COMMENT = 2;
@@ -13,7 +18,7 @@ const NAMES = [
   'Арафат',
   'Умида',
   'Аиша',
-  'Динора'
+  'Динора',
 ];
 const MESSAGES = [
   'Всё отлично!',
@@ -21,7 +26,7 @@ const MESSAGES = [
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
 const getId = createGetId();
@@ -38,7 +43,7 @@ const getRandomComment = () => {
     avatar: getAvatarUrl(getRandomFloat(FIRST_AVATAR, SIXTH_AVATAR, 0)),
     message: getRandomItem(MESSAGES),
     name: getRandomItem(NAMES),
-  }
+  };
 };
 
 const createRandomPhoto = () => {
@@ -49,8 +54,8 @@ const createRandomPhoto = () => {
     description: getRandomItem(DESCRIPTIONS),
     likes: getRandomFloat(MIN_LIKES, MAX_LIKES, 0),
     comments: fillBy(getRandomFloat(FIRST_COMMENT, SECOND_COMMENT, 0), getRandomComment),
-  }
-}
+  };
+};
 
 const getRandomPhotos = (count) => fillBy(count, createRandomPhoto);
 

@@ -59,4 +59,10 @@ const fillBy = (count, cb) => {
   return result;
 }
   
-export {getRandomItem, fillBy, createGetId, createGetRandomItem, getRandomFloat};
+export {
+  getRandomItem, 
+  fillBy, 
+  createGetId, 
+  createGetRandomItem, 
+  getRandomFloat
+};
