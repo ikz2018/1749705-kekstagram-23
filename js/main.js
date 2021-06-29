@@ -1,5 +1,7 @@
 import {getRandomPhotos} from './data.js';
-import {createPictureList} from './previews.js';
+import {fillPhotos} from './previews.js';
 
-createPictureList(getRandomPhotos(25));
+const photos = getRandomPhotos(25);
+
+fillPhotos(photos);
 
