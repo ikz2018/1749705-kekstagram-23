@@ -18,11 +18,10 @@ const isApprociateStrLength = function (str, maxLength) {
 };
 
 const getRandomFloat = (...args) => {
-  const powValue = (args[2] !== null && args[2] !== undefined) ? args[2] : 0;
   const [min, max, pow] = [
     Math.min(args[0], args[1]),
     Math.max(args[0], args[1]),
-    Math.pow(10, powValue),
+    Math.pow(10, args[2] ? args[2] : 0),
   ];
 
   return Math.round( (Math.random() * (max - min) + min) * pow) / pow;
