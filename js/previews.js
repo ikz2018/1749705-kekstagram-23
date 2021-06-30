@@ -1,11 +1,10 @@
-import {showBigPicture, fillComments} from './big-photo.js';
+import {showBigPicture, getPictureComments} from './big-photo.js';
 
 const PHOTOS_TEMPLATE = document.querySelector('#picture').content;
 const PHOTOS_CONTAINER = document.querySelector('.pictures');
 
 const onPhotoClick = (photo) => () => {
   showBigPicture(photo);
-  fillComments(photo);
 };
 
 const fillPhotos = (photos) => {
@@ -19,7 +18,7 @@ const fillPhotos = (photos) => {
     pictureElement.querySelector('.picture__likes').textContent = likes;
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
     pictureElement.querySelector('.picture').addEventListener('click', onPhotoClick(photo));
-    pictureElement.querySelector('.picture').addEventListener('click', fillComments(photo));
+    pictureElement.querySelector('.picture').addEventListener('click', getPictureComments(comments));
 
     fragment.appendChild(pictureElement);
   });
