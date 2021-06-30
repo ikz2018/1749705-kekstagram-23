@@ -1,7 +1,7 @@
 import {
-  getRandomItem, 
-  fillBy, 
-  createGetId, 
+  getRandomItem,
+  fillBy,
+  createGetId,
   getRandomFloat
 } from './util.js';
 
@@ -32,8 +32,8 @@ const MESSAGES = [
 const getId = createGetId();
 const getCommentId = createGetId(NUMBER_OF_COMMENTS);
 
-const getAvatarUrl = idx => `img/avatar-${idx}.svg`;
-const getUrl = idx => `photos/${idx}.jpg`;
+const getAvatarUrl = (idx) => `img/avatar-${idx}.svg`;
+const getUrl = (idx) => `photos/${idx}.jpg`;
 
 const getRandomComment = () => {
   const id = getCommentId();
