@@ -43,14 +43,18 @@ const addClass = () => {
   BODY.classList.add('modal-open');
 };
 
-CANCEL_BUTTON.addEventListener ('click', () => {
+const buttonAddClass = () => {
   addClass();
-});
+};
 
-document.addEventListener('keydown', (evt) => {
+const escAddClass = (evt) => {
   if (evt.keyCode === 27) {
     addClass();
   }
-});
+};
+
+CANCEL_BUTTON.addEventListener ('click', buttonAddClass);
+
+document.addEventListener('keydown', escAddClass);
 
 export {showBigPicture, getPictureComments};
