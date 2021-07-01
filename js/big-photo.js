@@ -7,22 +7,24 @@ const BIG_PICTURE_COMMENTS_COUNT = BIG_PICTURE.querySelector('.social__comment-c
 const BIG_PICTURE_COMMENTS_LOADER = BIG_PICTURE.querySelector('.comments-loader');
 const CANCEL_BUTTON = BIG_PICTURE.querySelector('.big-picture__cancel');
 const COMMENTS_LIST = document.querySelector('.social__comments');
+const COMMENT = COMMENTS_LIST.querySelector('.social__comment');
+
 const BODY = document.querySelector('body');
 
 const getPictureComments = (comments) => {
   const fragment = document.createDocumentFragment();
 
-  for (let index = 0; index < comments.length; index++) {
-    const newComment = document.createElement('li');
+  comments.forEach((comment) => {
+    const {avatar, name, message} = comment;
+    const commentElement = COMMENT.cloneNode(true);
 
-    newComment.classList.add('social__comment');
-    newComment.innerHTML = `<img class="social__picture" src="${comments[index].avatar}" 
-                            alt="${comments[index].name}" width="35" height="35">
-                            <p class="social__text">${comments[index].message}</p>`;
-    fragment.appendChild(newComment);
-  }
+    commentElement.querySelector('.social__picture').src = avatar;
+    commentElement.querySelector('.social__picture').alt = name;
+    commentElement.querySelector('.social__text').textContent = message;
 
-  return fragment;
+    fragment.appendChild(commentElement);
+  });
+  COMMENTS_LIST.appendChild(fragment);
 };
 
 const showBigPicture = (photo) => {
@@ -33,28 +35,27 @@ const showBigPicture = (photo) => {
   BIG_PICTURE_DESCRIPTION.textContent = photo.description;
   BIG_PICTURE_COMMENTS_COUNT.classList.add('hidden');
   BIG_PICTURE_COMMENTS_LOADER.classList.add('hidden');
-  COMMENTS_LIST.innerHTML = '';
-  COMMENTS_LIST.appendChild(getPictureComments(photo.comments));
-  BODY.classList.remove('modal-open');
-};
-
-const addClass = () => {
-  BIG_PICTURE.classList.add('hidden');
+  getPictureComments();
   BODY.classList.add('modal-open');
 };
 
-const buttonAddClass = () => {
-  addClass();
+const changeClass = () => {
+  BIG_PICTURE.classList.add('hidden');
+  BODY.classList.remove('modal-open');
 };
 
-const escAddClass = (evt) => {
+const buttonAddClass = () => {
+  changeClass();
+};
+
+const hidePopup = (evt) => {
   if (evt.keyCode === 27) {
-    addClass();
+    changeClass();
   }
 };
 
 CANCEL_BUTTON.addEventListener ('click', buttonAddClass);
 
-document.addEventListener('keydown', escAddClass);
+document.addEventListener('keydown', hidePopup);
 
-export {showBigPicture, getPictureComments};
+export {showBigPicture};
