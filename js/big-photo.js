@@ -7,7 +7,7 @@ const BIG_PICTURE_COMMENTS_COUNT = BIG_PICTURE.querySelector('.social__comment-c
 const BIG_PICTURE_COMMENTS_LOADER = BIG_PICTURE.querySelector('.comments-loader');
 const CANCEL_BUTTON = BIG_PICTURE.querySelector('.big-picture__cancel');
 const COMMENTS_LIST = document.querySelector('.social__comments');
-const COMMENT = COMMENTS_LIST.querySelector('.social__comment');
+const COMMENT_TEMPLATE = document.querySelector('#social__comment').content;
 
 const BODY = document.querySelector('body');
 
@@ -16,7 +16,7 @@ const getPictureComments = (comments) => {
 
   comments.forEach((comment) => {
     const {avatar, name, message} = comment;
-    const commentElement = COMMENT.cloneNode(true);
+    const commentElement = COMMENT_TEMPLATE.cloneNode(true);
 
     commentElement.querySelector('.social__picture').src = avatar;
     commentElement.querySelector('.social__picture').alt = name;
@@ -35,7 +35,7 @@ const showBigPicture = (photo) => {
   BIG_PICTURE_DESCRIPTION.textContent = photo.description;
   BIG_PICTURE_COMMENTS_COUNT.classList.add('hidden');
   BIG_PICTURE_COMMENTS_LOADER.classList.add('hidden');
-  getPictureComments();
+  getPictureComments(photo.comments);
   BODY.classList.add('modal-open');
 };
 
@@ -58,4 +58,4 @@ CANCEL_BUTTON.addEventListener ('click', buttonAddClass);
 
 document.addEventListener('keydown', hidePopup);
 
-export {showBigPicture};
+export {showBigPicture, getPictureComments};
