@@ -5,6 +5,7 @@ const PHOTOS_CONTAINER = document.querySelector('.pictures');
 
 const onPhotoClick = (photo) => () => {
   showBigPicture(photo);
+  getPictureComments(photo.comments);
 };
 
 const fillPhotos = (photos) => {
@@ -18,7 +19,6 @@ const fillPhotos = (photos) => {
     pictureElement.querySelector('.picture__likes').textContent = likes;
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
     pictureElement.querySelector('.picture').addEventListener('click', onPhotoClick(photo));
-    pictureElement.querySelector('.picture').addEventListener('click', getPictureComments(comments));
     fragment.appendChild(pictureElement);
   });
 
