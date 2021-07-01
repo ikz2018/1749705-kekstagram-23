@@ -35,7 +35,6 @@ const showBigPicture = (photo) => {
   BIG_PICTURE_DESCRIPTION.textContent = photo.description;
   BIG_PICTURE_COMMENTS_COUNT.classList.add('hidden');
   BIG_PICTURE_COMMENTS_LOADER.classList.add('hidden');
-  getPictureComments(photo.comments);
   BODY.classList.add('modal-open');
 };
 
