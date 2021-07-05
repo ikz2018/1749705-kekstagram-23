@@ -24,7 +24,7 @@ const getPictureComments = (comments) => {
 
     fragment.appendChild(commentElement);
   });
-  COMMENTS_LIST.appendChild(fragment);
+  return fragment;
 };
 
 const showBigPicture = (photo) => {
@@ -35,6 +35,8 @@ const showBigPicture = (photo) => {
   BIG_PICTURE_DESCRIPTION.textContent = photo.description;
   BIG_PICTURE_COMMENTS_COUNT.classList.add('hidden');
   BIG_PICTURE_COMMENTS_LOADER.classList.add('hidden');
+  COMMENTS_LIST.textContent = '';
+  COMMENTS_LIST.appendChild(getPictureComments(photo.comments));
   BODY.classList.add('modal-open');
 };
 
@@ -57,4 +59,4 @@ CANCEL_BUTTON.addEventListener ('click', buttonAddClass);
 
 document.addEventListener('keydown', hidePopup);
 
-export {showBigPicture, getPictureComments};
+export {showBigPicture};
