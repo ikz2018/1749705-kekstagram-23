@@ -3,7 +3,7 @@ const UPLOAD_INPUT = document.querySelector('.img-upload__input');
 const UPLOAD_IMAGE_FORM = document.querySelector('.img-upload__overlay');
 const UPLOAD_IMAGE_CLOSE_BUTTON = document.querySelector('.img-upload__cancel');
 const HASTAGS_INPUT = document.querySelector('.text__hashtags');
-const IMAGE_COMMENT = document.querySelector('.text_description');
+const IMAGE_COMMENT = document.querySelector('.text__description');
 const MAX_HASHTAG_NUMBER = 5;
 const MAX_COMMENT_LENGTH = 140;
 const CORRECT_HASHTAG = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
@@ -29,30 +29,18 @@ const closeUploadImageForm = () => {
   document.removeEventListener('keydown',onUploadImageFormEsc);
 };
 
-UPLOAD_INPUT.addEventListener('change', () => {
-  openUploadImageForm();
-});
+const openUploadForm = UPLOAD_INPUT.addEventListener('change', openUploadImageForm);
 
-UPLOAD_IMAGE_CLOSE_BUTTON.addEventListener('click', () => {
-  closeUploadImageForm();
-});
+const closeUploadForm = UPLOAD_IMAGE_CLOSE_BUTTON.addEventListener('click', closeUploadImageForm);
 
-const isUnique = (arr) => {
-  for (let index = 0; index < arr.length; index++) {
-    if (arr.indexOf(arr[index]) !== index) {
-      return true;
-    }
-  }
-  return false;
-};
-
-HASTAGS_INPUT.addEventListener('input', () => {
-  const array = HASTAGS_INPUT.value.split(' ');
+const checkHashtagValidity = () => {
+  const array = HASTAGS_INPUT.value.toLowerCase().split(/\s+/ );
+  const hashtagsSet = new Set(array);
 
   for (let index = 0; index < array.length; index++) {
     if (array.length > MAX_HASHTAG_NUMBER) {
       HASTAGS_INPUT.setCustomValidity(`Количество хэштэгов не может превышать ${MAX_HASHTAG_NUMBER}`);
-    } else if (isUnique(array)) {
+    } else if (array.length !== hashtagsSet.size) {
       HASTAGS_INPUT.setCustomValidity('Нельзя использовать один хэш-тег дважды');
     } else if (!CORRECT_HASHTAG.test(array[index])) {
       HASTAGS_INPUT.setCustomValidity('Введён неправильный формат хэштега');
@@ -61,9 +49,9 @@ HASTAGS_INPUT.addEventListener('input', () => {
     }
   }
   HASTAGS_INPUT.reportValidity();
-});
+};
 
-IMAGE_COMMENT.addEventListener('input', () => {
+const checkCommentValidity = () => {
   const valueLength = IMAGE_COMMENT.value.length;
 
   if (valueLength > MAX_COMMENT_LENGTH) {
@@ -73,4 +61,9 @@ IMAGE_COMMENT.addEventListener('input', () => {
   }
 
   IMAGE_COMMENT.reportValidity();
-});
+};
+
+const commentValidity = IMAGE_COMMENT.addEventListener('input', checkCommentValidity);
+const hashtagValidity = HASTAGS_INPUT.addEventListener('input', checkHashtagValidity);
+
+export {openUploadForm,closeUploadForm,commentValidity,hashtagValidity};
