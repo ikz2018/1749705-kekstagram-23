@@ -1,11 +1,10 @@
-import {showBigPicture, getPictureComments} from './big-photo.js';
+import {showBigPicture} from './big-photo.js';
 
 const PHOTOS_TEMPLATE = document.querySelector('#picture').content;
 const PHOTOS_CONTAINER = document.querySelector('.pictures');
 
 const onPhotoClick = (photo) => () => {
   showBigPicture(photo);
-  getPictureComments(photo.comments);
 };
 
 const fillPhotos = (photos) => {
