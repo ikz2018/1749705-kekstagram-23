@@ -2,6 +2,7 @@ const BIG_PICTURE = document.querySelector('.big-picture');
 const BIG_PICTURE_IMG = BIG_PICTURE.querySelector('.big-picture__img img');
 const BIG_PICTURE_LIKES = BIG_PICTURE.querySelector('.likes-count');
 const BIG_PICTURE_COMMENTS = BIG_PICTURE.querySelector('.comments-count');
+const BIG_PICTURE_COMMENT = BIG_PICTURE.querySelector('.comment-count');
 const BIG_PICTURE_DESCRIPTION = BIG_PICTURE.querySelector('.social__caption');
 const BIG_PICTURE_COMMENTS_COUNT = BIG_PICTURE.querySelector('.social__comment-count');
 const BIG_PICTURE_COMMENTS_LOADER = BIG_PICTURE.querySelector('.comments-loader');
@@ -25,18 +26,21 @@ const getPictureComments = () => {
     commentElement.querySelector('.social__picture').src = avatar;
     commentElement.querySelector('.social__picture').alt = name;
     commentElement.querySelector('.social__text').textContent = message;
+    BIG_PICTURE_COMMENT.textContent = count;
 
     fragment.appendChild(commentElement);
   });
   if (showMore) {
-    fragment.appendChild(BIG_PICTURE_COMMENTS_LOADER);
+    BIG_PICTURE_COMMENTS_LOADER.classList.remove('hidden');
+  } else {
+    BIG_PICTURE_COMMENTS_LOADER.classList.add('hidden');
   }
   return fragment;
 };
 
 const renderComments = () => {
   COMMENTS_LIST.textContent = '';
-  COMMENTS_LIST.appendChild(getPictureComments(comments, currentPage));
+  COMMENTS_LIST.appendChild(getPictureComments());
 };
 
 const onShowMoreClick = () => {
@@ -44,7 +48,7 @@ const onShowMoreClick = () => {
   renderComments();
 };
 
-BIG_PICTURE_COMMENTS_LOADER.addEventListener('click', onShowMoreClick());
+BIG_PICTURE_COMMENTS_LOADER.addEventListener('click', onShowMoreClick);
 
 const showBigPicture = (photo) => {
   BIG_PICTURE.classList.remove('hidden');
@@ -53,7 +57,6 @@ const showBigPicture = (photo) => {
   BIG_PICTURE_COMMENTS.textContent = photo.comments.length;
   BIG_PICTURE_DESCRIPTION.textContent = photo.description;
   BIG_PICTURE_COMMENTS_COUNT.classList.remove('hidden');
-  BIG_PICTURE_COMMENTS_LOADER.classList.remove('hidden');
   comments = photo.comments;
   currentPage = 1;
   renderComments();
@@ -63,7 +66,6 @@ const showBigPicture = (photo) => {
 const changeClass = () => {
   BIG_PICTURE.classList.add('hidden');
   BIG_PICTURE_COMMENTS_COUNT.classList.add('hidden');
-  BIG_PICTURE_COMMENTS_LOADER.classList.add('hidden');
   BODY.classList.remove('modal-open');
 };
 
