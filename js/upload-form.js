@@ -7,7 +7,7 @@ const IMAGE_COMMENT = document.querySelector('.text__description');
 const MAX_HASHTAG_NUMBER = 5;
 const MAX_COMMENT_LENGTH = 140;
 const CORRECT_HASHTAG = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
-
+const RE = /\s+/;
 const onUploadImageFormEsc = (evt) => {
   if (evt.keyCode === 27) {
     evt.preventDefault();
@@ -34,7 +34,7 @@ const openUploadForm = UPLOAD_INPUT.addEventListener('change', openUploadImageFo
 const closeUploadForm = UPLOAD_IMAGE_CLOSE_BUTTON.addEventListener('click', closeUploadImageForm);
 
 const checkHashtagValidity = () => {
-  const array = HASTAGS_INPUT.value.toLowerCase().split(/\s+/ );
+  const array = HASTAGS_INPUT.value.toLowerCase().split(RE);
   const hashtagsSet = new Set(array);
 
   for (let index = 0; index < array.length; index++) {
