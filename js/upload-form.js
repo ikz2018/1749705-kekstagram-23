@@ -1,3 +1,5 @@
+import {zoomImageUp, zoomImageDown, zoomImageDrop} from './zoom-image.js';
+
 const BODY = document.querySelector('body');
 const UPLOAD_INPUT = document.querySelector('.img-upload__input');
 const UPLOAD_IMAGE_FORM = document.querySelector('.img-upload__overlay');
@@ -19,6 +21,8 @@ const onUploadImageFormEsc = (evt) => {
 const openUploadImageForm = () => {
   UPLOAD_IMAGE_FORM.classList.remove('hidden');
   BODY.classList.add('modal-open');
+  document.querySelector('.scale__control--smaller').addEventListener('click', zoomImageDown);
+  document.querySelector('.scale__control--bigger').addEventListener('click', zoomImageUp);
   document.addEventListener('keydown', onUploadImageFormEsc);
 };
 
@@ -26,6 +30,7 @@ const closeUploadImageForm = () => {
   UPLOAD_IMAGE_FORM.classList.add('hidden');
   BODY.classList.remove('modal-open');
   UPLOAD_INPUT.value = null;
+  zoomImageDrop();
   document.removeEventListener('keydown',onUploadImageFormEsc);
 };
 

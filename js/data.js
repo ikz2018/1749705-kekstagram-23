@@ -5,8 +5,8 @@ import {
   getRandomFloat
 } from './util.js';
 
-const FIRST_COMMENT = 1;
-const SECOND_COMMENT = 2;
+const FIRST_COMMENT = 20;
+const SECOND_COMMENT = 30;
 const MIN_LIKES = 15;
 const MAX_LIKES = 200;
 const NUMBER_OF_COMMENTS = 1000;
