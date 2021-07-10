@@ -71,7 +71,7 @@ function checkEffect (effect) {
   if (effect === 'none') {
     IMAGE_PREVIEW.classList.remove(effectsSettingList[effect].className);
     IMAGE_PREVIEW.style.filter = effectsSettingList[effect].filterName;
-    SLIDER_VALUE.valur = '';
+    SLIDER_VALUE.value = '';
   } else {
     SLIDER_ELEMENT.noUiSlider.updateOptions({
       range: {
@@ -82,8 +82,9 @@ function checkEffect (effect) {
       step: effectsSettingList[effect].step,
     });
     IMAGE_PREVIEW.classList.add('effectsSettingList[effect].className');
-    effectsSettingList.noUiSlider.on('update', (_, handle, unencoded) => {
+    SLIDER_ELEMENT.noUiSlider.on('update', (__, handle, unencoded) => {
       IMAGE_PREVIEW.style.filter = `${effectsSettingList[effect].filterName}(${unencoded[handle]}${effectsSettingList[effect].unit})`;
+      SLIDER_VALUE.value = unencoded[handle];
     });
   }
 }
