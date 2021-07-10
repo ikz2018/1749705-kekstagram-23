@@ -1,4 +1,5 @@
 import {zoomImageUp, zoomImageDown, zoomImageDrop} from './zoom-image.js';
+import {addEffect, dropEffect} from './add-effect.js';
 
 const BODY = document.querySelector('body');
 const UPLOAD_INPUT = document.querySelector('.img-upload__input');
@@ -24,6 +25,7 @@ const openUploadImageForm = () => {
   document.querySelector('.scale__control--smaller').addEventListener('click', zoomImageDown);
   document.querySelector('.scale__control--bigger').addEventListener('click', zoomImageUp);
   document.addEventListener('keydown', onUploadImageFormEsc);
+  document.querySelector('.effects__list').addEventListener('change', addEffect);
 };
 
 const closeUploadImageForm = () => {
@@ -31,6 +33,7 @@ const closeUploadImageForm = () => {
   BODY.classList.remove('modal-open');
   UPLOAD_INPUT.value = null;
   zoomImageDrop();
+  dropEffect();
   document.removeEventListener('keydown',onUploadImageFormEsc);
 };
 
