@@ -7,10 +7,10 @@ const onPhotoClick = (photo) => () => {
   showBigPicture(photo);
 };
 
-const fillPhotos = (photos) => {
+const fillPhotos = (similarPhotos) => {
   const fragment = document.createDocumentFragment();
 
-  photos.forEach((photo) => {
+  similarPhotos.forEach((photo) => {
     const {url, likes, comments} = photo;
     const pictureElement = PHOTOS_TEMPLATE.cloneNode(true);
 
