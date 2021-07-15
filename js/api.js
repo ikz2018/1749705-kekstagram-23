@@ -1,17 +1,23 @@
-const loadData = (onSuccess, onFail) => {
-  fetch('https://23.javascript.pages.academy/kekstagram/data')
-    .then((response) => response.json())
-    .then((images) => {
-      onSuccess(images);
+const loadData = (onSuccess, onError, url) => {
+  fetch(url)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        onError();
+      }
     })
+    .then((pictures) => {
+      onSuccess(pictures);
+    })
+
     .catch(() => {
-      onFail('Не удалось загрузить данные с сервера');
+      onError();
     });
 };
 
-const sendData = (onSuccess, onFail, body) => {
-  fetch(
-    'https://23.javascript.pages.academy/kekstagram',
+const sendData = (onSuccess, onError, body, url) => {
+  fetch(url,
     {
       method: 'POST',
       body,
@@ -21,11 +27,11 @@ const sendData = (onSuccess, onFail, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        throw new Error('Не удалось отправить форму. Попробуйте ещё раз');
+        onError();
       }
     })
-    .catch((error) => {
-      onFail(error.message);
+    .catch(() => {
+      onError();
     });
 };
 
