@@ -11,7 +11,7 @@ const DOWNLOAD_URL = 'https://23.javascript.pages.academy/kekstagram/data';
 
 loadData(
   fillPhotos,
-  () => showAlert,
+  showAlert,
   DOWNLOAD_URL,
 );
 
