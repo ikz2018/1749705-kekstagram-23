@@ -1,18 +1,21 @@
+const ALERT_MESSAGE = 'Не удалось получить данные. Попробуйте ещё раз';
+const FAIL_MESSAGE = 'Не удалось отправить данные. Попробуйте ещё раз';
+
 const loadData = (onSuccess, onError, url) => {
   fetch(url)
     .then((response) => {
       if (response.ok) {
         return response.json();
       } else {
-        onError();
+        throw new Error (ALERT_MESSAGE);
       }
     })
     .then((pictures) => {
       onSuccess(pictures);
     })
 
-    .catch(() => {
-      onError();
+    .catch((error) => {
+      onError(error);
     });
 };
 
@@ -27,11 +30,11 @@ const sendData = (onSuccess, onError, body, url) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onError();
+        throw new Error(FAIL_MESSAGE);
       }
     })
-    .catch(() => {
-      onError();
+    .catch((error) => {
+      onError(error);
     });
 };
 
