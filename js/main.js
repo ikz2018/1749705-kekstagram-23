@@ -1,18 +1,28 @@
 /* eslint-disable no-unused-vars */
-import {getRandomPhotos} from './data.js';
 import {loadData} from './api.js';
 import {fillPhotos} from './previews.js';
-import {openUploadImageForm, closeUploadImageForm, checkCommentValidity, checkHashtagValidity} from './upload-form.js';
+import {openUploadImageForm, closeUploadImageForm, onCheckCommentValidity, onCheckHashtagValidity} from './upload-form.js';
 import {setUserFormSubmit} from './upload-form.js';
 import {renderMessagePopup} from './messages.js';
+import {showAlert} from './util.js';
 
-loadData((images) => {
-  fillPhotos(images);
-});
+const DOWNLOAD_URL = 'https://23.javascript.pages.academy/kekstagram/data';
+
+
+loadData(
+  fillPhotos,
+  () => showAlert,
+  DOWNLOAD_URL,
+);
 
 const executeFormSuccess = () => {
   closeUploadImageForm();
   renderMessagePopup('success');
 };
 
-setUserFormSubmit(executeFormSuccess);
+const executeFormError = () => {
+  closeUploadImageForm();
+  renderMessagePopup('error');
+};
+
+setUserFormSubmit(executeFormSuccess, executeFormError);
