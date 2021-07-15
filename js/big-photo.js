@@ -18,10 +18,7 @@ const getPictureComments = () => {
   const fragment = document.createDocumentFragment();
   const count = PAGE_SIZE * currentPage;
   const showMore = count < comments.length;
-  BIG_PICTURE_COMMENT.textContent = count;
-  if (BIG_PICTURE_COMMENT.textContent > comments.length) {
-    BIG_PICTURE_COMMENT.textContent = comments.length;
-  }
+  BIG_PICTURE_COMMENT.textContent = count < comments.length ? count : comments.length;
 
   comments.slice(0, count-1).forEach((comment) => {
     const {avatar, name, message} = comment;
