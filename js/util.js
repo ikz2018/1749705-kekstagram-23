@@ -55,10 +55,31 @@ const fillBy = (count, cb) => {
   return result;
 };
 
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+const ALERT_TEMPLATE = document.querySelector('#alert').content;
+const ALERT_MESSAGE = 'Не удалось получить данные. Попробуйте ещё раз';
+const ALERT_SHOW_TIME = 5000;
+
+const showAlert = (alertMessage) => {
+  const allertElement = ALERT_TEMPLATE.cloneNode(true);
+  const allertInner = allertElement.querySelector('.alert__inner');
+  alertMessage = ALERT_MESSAGE;
+  allertInner.textContent = alertMessage;
+
+  document.body.append(allertInner);
+
+  setTimeout(() => {
+    allertElement.remove();
+  }, ALERT_SHOW_TIME);
+};
+
 export {
   getRandomItem,
   fillBy,
   createGetId,
   createGetRandomItem,
-  getRandomFloat
+  getRandomFloat,
+  showAlert,
+  isEscEvent
 };

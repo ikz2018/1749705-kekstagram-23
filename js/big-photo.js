@@ -18,6 +18,7 @@ const getPictureComments = () => {
   const fragment = document.createDocumentFragment();
   const count = PAGE_SIZE * currentPage;
   const showMore = count < comments.length;
+  BIG_PICTURE_COMMENT.textContent = count < comments.length ? count : comments.length;
 
   comments.slice(0, count-1).forEach((comment) => {
     const {avatar, name, message} = comment;
@@ -26,10 +27,10 @@ const getPictureComments = () => {
     commentElement.querySelector('.social__picture').src = avatar;
     commentElement.querySelector('.social__picture').alt = name;
     commentElement.querySelector('.social__text').textContent = message;
-    BIG_PICTURE_COMMENT.textContent = count;
 
     fragment.appendChild(commentElement);
   });
+
   if (showMore) {
     BIG_PICTURE_COMMENTS_LOADER.classList.remove('hidden');
   } else {
