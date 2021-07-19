@@ -5,12 +5,12 @@ import {openUploadImageForm, closeUploadImageForm, onCheckCommentValidity, onChe
 import {setUserFormSubmit} from './upload-form.js';
 import {renderMessagePopup} from './messages.js';
 import {showAlert} from './util.js';
+import {addFiltersHandler} from './image-filters.js';
 
 const DOWNLOAD_URL = 'https://23.javascript.pages.academy/kekstagram/data';
 
-
 loadData(
-  fillPhotos,
+  addFiltersHandler,
   showAlert,
   DOWNLOAD_URL,
 );
