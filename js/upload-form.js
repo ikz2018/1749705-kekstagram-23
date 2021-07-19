@@ -92,7 +92,6 @@ const setUserFormSubmit = (onSuccess, onFail) => {
       UPLOAD_URL,
     );
   };
-
   IMG_UPLOAD_FORM.addEventListener('submit', onSendData);
 };
 
