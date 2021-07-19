@@ -2,6 +2,7 @@ import {showBigPicture} from './big-photo.js';
 
 const PHOTOS_TEMPLATE = document.querySelector('#picture').content;
 const PHOTOS_CONTAINER = document.querySelector('.pictures');
+const IMG_FILTERS = document.querySelector('.img-filters');
 
 const onPhotoClick = (photo) => () => {
   showBigPicture(photo);
@@ -20,7 +21,8 @@ const fillPhotos = (similarPhotos) => {
     pictureElement.querySelector('.picture').addEventListener('click', onPhotoClick(photo));
     fragment.appendChild(pictureElement);
   });
-
+  IMG_FILTERS.classList.remove('img-filters--inactive');
+  PHOTOS_CONTAINER.textContent = '';
   PHOTOS_CONTAINER.appendChild(fragment);
 };
 
