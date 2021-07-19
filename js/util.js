@@ -38,6 +38,18 @@ const createGetRandomItem = (data) => {
   return () => mixed[idx++ % mixed.length];
 };
 
+const sortByComments = (data) => {
+  const arrayPosts = data.slice();
+  arrayPosts.sort((first, second) => second.comments.length - first.comments.length);
+  return arrayPosts;
+};
+
+const getRandomItems = (data, count) => {
+  const mixed = [...data].sort(randomCompareItems);
+
+  return mixed.slice(0, count);
+};
+
 const createGetId = (startValue = 1) => {
   let idx = startValue;
 
@@ -74,6 +86,17 @@ const showAlert = (alertMessage) => {
   }, ALERT_SHOW_TIME);
 };
 
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+
+  };
+}
+
 export {
   getRandomItem,
   fillBy,
@@ -81,5 +104,8 @@ export {
   createGetRandomItem,
   getRandomFloat,
   showAlert,
-  isEscEvent
+  isEscEvent,
+  getRandomItems,
+  sortByComments,
+  debounce
 };
