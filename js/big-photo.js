@@ -70,7 +70,7 @@ const changeClass = () => {
   BODY.classList.remove('modal-open');
 };
 
-const buttonAddClass = () => {
+const addButtonClass = () => {
   changeClass();
 };
 
@@ -80,7 +80,7 @@ const hidePopup = (evt) => {
   }
 };
 
-CANCEL_BUTTON.addEventListener ('click', buttonAddClass);
+CANCEL_BUTTON.addEventListener ('click', addButtonClass);
 document.addEventListener('keydown', hidePopup);
 
 export {showBigPicture};
