@@ -10,6 +10,10 @@ const onPhotoClick = (photo) => () => {
 
 const fillPhotos = (similarPhotos) => {
   const fragment = document.createDocumentFragment();
+  const removePhotos = document.querySelectorAll('.picture');
+  removePhotos.forEach((element) => {
+    element.parentNode.removeChild(element);
+  });
 
   similarPhotos.forEach((photo) => {
     const {url, likes, comments} = photo;
@@ -22,7 +26,6 @@ const fillPhotos = (similarPhotos) => {
     fragment.appendChild(pictureElement);
   });
   IMG_FILTERS.classList.remove('img-filters--inactive');
-  PHOTOS_CONTAINER.textContent = '';
   PHOTOS_CONTAINER.appendChild(fragment);
 };
 
