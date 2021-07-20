@@ -1,3 +1,5 @@
+const PAGE_SIZE = 5;
+const ESC_KEY_CODE = 27;
 const BIG_PICTURE = document.querySelector('.big-picture');
 const BIG_PICTURE_IMG = BIG_PICTURE.querySelector('.big-picture__img img');
 const BIG_PICTURE_LIKES = BIG_PICTURE.querySelector('.likes-count');
@@ -10,7 +12,6 @@ const CANCEL_BUTTON = BIG_PICTURE.querySelector('.big-picture__cancel');
 const COMMENTS_LIST = document.querySelector('.social__comments');
 const COMMENT_TEMPLATE = document.querySelector('#social__comment').content;
 const BODY = document.querySelector('body');
-const PAGE_SIZE = 5;
 let currentPage = 1;
 let comments = [];
 
@@ -75,7 +76,7 @@ const addButtonClass = () => {
 };
 
 const hidePopup = (evt) => {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === ESC_KEY_CODE) {
     changeClass();
   }
 };
