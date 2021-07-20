@@ -1,7 +1,12 @@
+const EFFECTS = ['effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--phobos', 'effects__preview--heat'];
+const NONE = 'none';
+const UNSET = 'unset';
+const BLOCK = 'block';
 const SLIDER_ELEMENT = document.querySelector('.effect-level__slider');
 const SLIDER_VALUE = document.querySelector('.effect-level__value');
 const EFFECT_LEVEL = document.querySelector('.effect-level');
 const IMAGE_PREVIEW = document.querySelector('.img-upload__preview');
+const EFFECT_NONE = document.querySelector('#effect-none');
 
 EFFECT_LEVEL.style.display = 'none';
 
@@ -62,7 +67,7 @@ const effectsSettingList = {
     unit: '',
   },
   none: {
-    className: ['effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--phobos', 'effects__preview--heat'],
+    className: EFFECTS,
     filterName: 'unset',
   },
 };
@@ -91,17 +96,17 @@ function checkEffect (effect) {
 
 function addEffect(evt) {
   const effectName = evt.target.value;
-  EFFECT_LEVEL.style.display = 'none';
-  EFFECT_LEVEL.style.display = effectName !== 'none' ? 'block' : 'none';
+  EFFECT_LEVEL.style.display = NONE;
+  EFFECT_LEVEL.style.display = effectName !== NONE ? BLOCK : NONE;
   checkEffect(effectName);
 }
 
 function dropEffect() {
-  IMAGE_PREVIEW.classList.remove('effects__preview--chrome', 'effects__preview--sepia', 'effects__preview--marvin', 'effects__preview--phobos', 'effects__preview--heat');
-  IMAGE_PREVIEW.style.filter = 'unset';
+  IMAGE_PREVIEW.classList.remove(...EFFECTS);
+  IMAGE_PREVIEW.style.filter = UNSET;
   SLIDER_VALUE.value = '';
-  EFFECT_LEVEL.style.display = 'none';
-  document.querySelector('#effect-none').checked = true;
+  EFFECT_LEVEL.style.display = NONE;
+  EFFECT_NONE.checked = true;
 }
 
 export {addEffect, dropEffect};
