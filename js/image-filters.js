@@ -1,12 +1,12 @@
 import {fillPhotos} from './previews.js';
 import {getRandomItems, sortByComments, debounce} from './util.js';
 
+const RERENDER_DELAY = 500;
+const PHOTOS_COUNT = 10;
 const FORM = document.querySelector('.img-filters__form');
 const DISCUSSED = FORM.querySelector('#filter-discussed');
 const RANDOM_ITEM = FORM.querySelector('#filter-random');
 const DEFAULT_ITEM = FORM.querySelector('#filter-default');
-const RERENDER_DELAY = 500;
-const PHOTOS_COUNT = 10;
 
 const addFiltersHandler = (photos) => {
 
