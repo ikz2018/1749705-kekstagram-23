@@ -2,6 +2,11 @@ import {zoomImageUp, zoomImageDown, zoomImageDrop} from './zoom-image.js';
 import {addEffect, dropEffect} from './add-effect.js';
 import {sendData} from './api.js';
 
+const MAX_HASHTAG_NUMBER = 5;
+const MAX_COMMENT_LENGTH = 140;
+const CORRECT_HASHTAG_REGEXP = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
+const SPACES_REGEXP = /\s+/;
+const UPLOAD_URL = 'https://23.javascript.pages.academy/kekstagram';
 const BODY = document.querySelector('body');
 const UPLOAD_INPUT = document.querySelector('.img-upload__input');
 const IMG_UPLOAD_FORM = document.querySelector('.img-upload__form');
@@ -9,11 +14,6 @@ const UPLOAD_IMAGE_FORM = document.querySelector('.img-upload__overlay');
 const UPLOAD_IMAGE_CLOSE_BUTTON = document.querySelector('.img-upload__cancel');
 const HASTAGS_INPUT = document.querySelector('.text__hashtags');
 const IMAGE_COMMENT = document.querySelector('.text__description');
-const MAX_HASHTAG_NUMBER = 5;
-const MAX_COMMENT_LENGTH = 140;
-const CORRECT_HASHTAG_REGEXP = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
-const SPACES_REGEXP = /\s+/;
-const UPLOAD_URL = 'https://23.javascript.pages.academy/kekstagram';
 
 const onUploadImageFormEsc = (evt) => {
   if (evt.keyCode === 27) {
@@ -22,6 +22,15 @@ const onUploadImageFormEsc = (evt) => {
     closeUploadImageForm();
   }
 };
+
+const onEscKey = (evt) => {
+  if (evt.keyCode === 27) {
+    evt.stopPropagation();
+  }
+};
+
+HASTAGS_INPUT.addEventListener('keydown', onEscKey);
+IMAGE_COMMENT.addEventListener('keydown', onEscKey);
 
 const openUploadImageForm = () => {
   UPLOAD_IMAGE_FORM.classList.remove('hidden');
@@ -68,12 +77,8 @@ const onCheckHashtagValidity = () => {
 const onCheckCommentValidity = () => {
   const valueLength = IMAGE_COMMENT.value.length;
 
-  if (valueLength > MAX_COMMENT_LENGTH) {
-    IMAGE_COMMENT.setCustomValidity(`Удалите лишние ${  valueLength - MAX_COMMENT_LENGTH } симв.`);
-  } else {
-    IMAGE_COMMENT.setCustomValidity('');
-  }
-
+  const checkCommentsCount = valueLength > MAX_COMMENT_LENGTH ? `Удалите лишние ${  valueLength - MAX_COMMENT_LENGTH } симв.` : ('');
+  IMAGE_COMMENT.setCustomValidity(checkCommentsCount);
   IMAGE_COMMENT.reportValidity();
 };
 
