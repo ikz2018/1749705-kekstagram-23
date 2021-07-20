@@ -1,5 +1,6 @@
 const ALERT_MESSAGE = 'Не удалось получить данные. Попробуйте ещё раз';
 const FAIL_MESSAGE = 'Не удалось отправить данные. Попробуйте ещё раз';
+const POST = 'POST';
 
 const loadData = (onSuccess, onError, url) => {
   fetch(url)
@@ -22,7 +23,7 @@ const loadData = (onSuccess, onError, url) => {
 const sendData = (onSuccess, onError, body, url) => {
   fetch(url,
     {
-      method: 'POST',
+      method: POST,
       body,
     },
   )
