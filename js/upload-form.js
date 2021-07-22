@@ -8,8 +8,8 @@ const CORRECT_HASHTAG_REGEXP = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
 const SPACES_REGEXP = /\s+/;
 const UPLOAD_URL = 'https://23.javascript.pages.academy/kekstagram';
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-const fileChooser = document.querySelector('.img-upload__input');
-const preview = document.querySelector('.img-upload__preview img');
+const FILE_CHOOSER = document.querySelector('.img-upload__input');
+const PREVIEW = document.querySelector('.img-upload__preview img');
 const BODY = document.querySelector('body');
 const UPLOAD_INPUT = document.querySelector('.img-upload__input');
 const IMG_UPLOAD_FORM = document.querySelector('.img-upload__form');
@@ -93,8 +93,8 @@ const onCheckCommentValidity = () => {
 IMAGE_COMMENT.addEventListener('input', onCheckCommentValidity);
 HASTAGS_INPUT.addEventListener('input', onCheckHashtagValidity);
 
-fileChooser.addEventListener('change', () => {
-  const file = fileChooser.files[0];
+const onFileChoose =  () => {
+  const file = FILE_CHOOSER.files[0];
   const fileName = file.name.toLowerCase();
 
   const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
@@ -103,13 +103,14 @@ fileChooser.addEventListener('change', () => {
     const reader = new FileReader();
 
     reader.addEventListener('load', () => {
-      preview.src = reader.result;
+      PREVIEW.src = reader.result;
     });
 
     reader.readAsDataURL(file);
   }
-});
+};
 
+FILE_CHOOSER.addEventListener('change', onFileChoose);
 
 const setUserFormSubmit = (onSuccess, onFail) => {
   const onSendData = (evt) => {
@@ -126,4 +127,4 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   IMG_UPLOAD_FORM.addEventListener('submit', onSendData);
 };
 
-export {onUploadImageFormOpen as openUploadImageForm, onUploadImageFormClose as closeUploadImageForm, onCheckCommentValidity, onCheckHashtagValidity, setUserFormSubmit};
+export {onUploadImageFormOpen, onUploadImageFormClose, onCheckCommentValidity, onCheckHashtagValidity, setUserFormSubmit};
