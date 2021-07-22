@@ -7,6 +7,9 @@ const MAX_COMMENT_LENGTH = 140;
 const CORRECT_HASHTAG_REGEXP = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
 const SPACES_REGEXP = /\s+/;
 const UPLOAD_URL = 'https://23.javascript.pages.academy/kekstagram';
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const fileChooser = document.querySelector('.img-upload__input');
+const preview = document.querySelector('.img-upload__preview img');
 const BODY = document.querySelector('body');
 const UPLOAD_INPUT = document.querySelector('.img-upload__input');
 const IMG_UPLOAD_FORM = document.querySelector('.img-upload__form');
@@ -19,20 +22,22 @@ const onUploadImageFormEsc = (evt) => {
   if (evt.keyCode === 27) {
     evt.preventDefault();
     // eslint-disable-next-line no-use-before-define
-    closeUploadImageForm();
+    onUploadImageFormClose();
   }
 };
 
-const onEscKey = (evt) => {
+const onEscKeyHashtags = (evt) => {
   if (evt.keyCode === 27) {
     evt.stopPropagation();
   }
 };
 
-HASTAGS_INPUT.addEventListener('keydown', onEscKey);
-IMAGE_COMMENT.addEventListener('keydown', onEscKey);
+const onEscKeyComments = () => onEscKeyHashtags();
 
-const openUploadImageForm = () => {
+HASTAGS_INPUT.addEventListener('keydown', onEscKeyHashtags);
+IMAGE_COMMENT.addEventListener('keydown', onEscKeyComments);
+
+const onUploadImageFormOpen = () => {
   UPLOAD_IMAGE_FORM.classList.remove('hidden');
   BODY.classList.add('modal-open');
   document.querySelector('.scale__control--smaller').addEventListener('click', zoomImageDown);
@@ -41,7 +46,7 @@ const openUploadImageForm = () => {
   document.querySelector('.effects__list').addEventListener('change', addEffect);
 };
 
-const closeUploadImageForm = () => {
+const onUploadImageFormClose = () => {
   UPLOAD_IMAGE_FORM.classList.add('hidden');
   BODY.classList.remove('modal-open');
   UPLOAD_INPUT.value = null;
@@ -52,9 +57,9 @@ const closeUploadImageForm = () => {
   document.removeEventListener('keydown',onUploadImageFormEsc);
 };
 
-UPLOAD_INPUT.addEventListener('change', openUploadImageForm);
+UPLOAD_INPUT.addEventListener('change', onUploadImageFormOpen);
 
-UPLOAD_IMAGE_CLOSE_BUTTON.addEventListener('click', closeUploadImageForm);
+UPLOAD_IMAGE_CLOSE_BUTTON.addEventListener('click', onUploadImageFormClose);
 
 const onCheckHashtagValidity = () => {
   const array = HASTAGS_INPUT.value.toLowerCase().split(SPACES_REGEXP);
@@ -63,6 +68,8 @@ const onCheckHashtagValidity = () => {
   for (let index = 0; index < array.length; index++) {
     if (array.length > MAX_HASHTAG_NUMBER) {
       HASTAGS_INPUT.setCustomValidity(`Количество хэштэгов не может превышать ${MAX_HASHTAG_NUMBER}`);
+    } else if (HASTAGS_INPUT.value === '') {
+      HASTAGS_INPUT.setCustomValidity('');
     } else if (array.length !== hashtagsSet.size) {
       HASTAGS_INPUT.setCustomValidity('Нельзя использовать один хэш-тег дважды');
     } else if (!CORRECT_HASHTAG_REGEXP.test(array[index])) {
@@ -71,6 +78,7 @@ const onCheckHashtagValidity = () => {
       HASTAGS_INPUT.setCustomValidity('');
     }
   }
+
   HASTAGS_INPUT.reportValidity();
 };
 
@@ -84,6 +92,24 @@ const onCheckCommentValidity = () => {
 
 IMAGE_COMMENT.addEventListener('input', onCheckCommentValidity);
 HASTAGS_INPUT.addEventListener('input', onCheckHashtagValidity);
+
+fileChooser.addEventListener('change', () => {
+  const file = fileChooser.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', () => {
+      preview.src = reader.result;
+    });
+
+    reader.readAsDataURL(file);
+  }
+});
+
 
 const setUserFormSubmit = (onSuccess, onFail) => {
   const onSendData = (evt) => {
@@ -100,4 +126,4 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   IMG_UPLOAD_FORM.addEventListener('submit', onSendData);
 };
 
-export {openUploadImageForm, closeUploadImageForm, onCheckCommentValidity, onCheckHashtagValidity, setUserFormSubmit};
+export {onUploadImageFormOpen as openUploadImageForm, onUploadImageFormClose as closeUploadImageForm, onCheckCommentValidity, onCheckHashtagValidity, setUserFormSubmit};
