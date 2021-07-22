@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import {loadData} from './api.js';
-import {closeUploadImageForm} from './upload-form.js';
+import {onUploadImageFormClose} from './upload-form.js';
 import {setUserFormSubmit} from './upload-form.js';
 import {renderMessagePopup} from './messages.js';
 import {showAlert} from './util.js';
@@ -15,12 +15,12 @@ loadData(
 );
 
 const executeFormSuccess = () => {
-  closeUploadImageForm();
+  onUploadImageFormClose();
   renderMessagePopup('success');
 };
 
 const executeFormError = () => {
-  closeUploadImageForm();
+  onUploadImageFormClose();
   renderMessagePopup('error');
 };
 
