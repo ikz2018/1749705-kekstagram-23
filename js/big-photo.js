@@ -71,17 +71,17 @@ const changeClass = () => {
   BODY.classList.remove('modal-open');
 };
 
-const addButtonClass = () => {
+const onButtonClassAdd = () => {
   changeClass();
 };
 
-const hidePopup = (evt) => {
+const onPopupHide = (evt) => {
   if (evt.keyCode === ESC_KEY_CODE) {
     changeClass();
   }
 };
 
-CANCEL_BUTTON.addEventListener ('click', addButtonClass);
-document.addEventListener('keydown', hidePopup);
+CANCEL_BUTTON.addEventListener ('click', onButtonClassAdd);
+document.addEventListener('keydown', onPopupHide);
 
 export {showBigPicture};
